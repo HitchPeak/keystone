@@ -28,6 +28,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private var mapView: MapView? = null
 
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.hitchpeak.keystone.R.id.drawer_layout
+import com.hitchpeak.keystone.utils.HttpClient
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -28,6 +29,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         navigate(R.id.nav_home)
+
+        // Initialize http client:
+        HttpClient.init(applicationContext)
     }
 
     override fun onBackPressed() {
