@@ -1,25 +1,18 @@
 package com.hitchpeak.keystone
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_home.*
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -31,6 +24,9 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class HomeFragment : Fragment(), OnMapReadyCallback {
+
+    private var mapView: MapView? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -47,9 +43,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
-        MapsInitializer.initialize(context)
-
         googleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
+
+        val sydney = LatLng(-33.852, 151.211)
+        googleMap?.addMarker(MarkerOptions().position(sydney)
+                .title("Marker in Sydney"))
+        googleMap?.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
     }
 
 
