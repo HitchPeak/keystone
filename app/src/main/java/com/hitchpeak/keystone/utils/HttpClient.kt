@@ -11,7 +11,6 @@ import com.android.volley.toolbox.Volley
 class HttpClient constructor(context: Context, baseUrl: String ) {
 
     companion object {
-
         val baseUrl: String = "http://10.0.2.2:8000/"
 
         @Volatile

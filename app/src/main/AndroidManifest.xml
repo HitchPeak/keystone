@@ -3,9 +3,8 @@
     package="com.hitchpeak.keystone">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,19 +23,21 @@
             </intent-filter>
         </activity>
 
-
-        <!--Maps APIs-->
+        <!-- Maps APIs -->
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <!--Maps-->
+        <!-- Maps -->
 
+        <service
+            android:name="com.hitchpeak.keystone.appServices.LocationShareService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

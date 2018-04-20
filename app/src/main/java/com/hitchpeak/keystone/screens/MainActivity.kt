@@ -1,20 +1,24 @@
-package com.hitchpeak.keystone
+package com.hitchpeak.keystone.screens
 
 //import android.app.Fragment
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
-import com.hitchpeak.keystone.R.id.drawer_layout
+import com.hitchpeak.keystone.R
+import com.hitchpeak.keystone.appServices.LocationShareService
+import com.hitchpeak.keystone.screens.home.HomeFragment
+import com.hitchpeak.keystone.screens.settings.SettingsFragment
 import com.hitchpeak.keystone.utils.HttpClient
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
+
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +36,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // Initialize http client:
         HttpClient.init(applicationContext)
+
+
+        // Start location sharing TODO("base starting location sharing on setting")
+        startService(Intent(this, LocationShareService::class.java))
     }
 
     override fun onBackPressed() {
+
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
@@ -42,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun navigate(id: Int) {
+    private fun navigate(id: Int) {
         val screenInstance = when (id) {
             R.id.nav_home -> HomeFragment()
             R.id.nav_settings -> SettingsFragment()
@@ -58,8 +67,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         navigate(item.itemId)
-
         drawer_layout.closeDrawer(GravityCompat.START)
+
         return true
     }
 }
