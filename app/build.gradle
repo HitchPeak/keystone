@@ -16,9 +16,27 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'NOTIF_CHANNEL_ID', '"Hitchpeak"'
+            buildConfigField 'int', 'LOCATION_NOTIF_ID', '1000'
+            buildConfigField 'long', 'LOCATION_SHARE_INTERVAL', '5'
         }
+        debug {
+            buildConfigField 'String', 'NOTIF_CHANNEL_ID', '"Hitchpeak"'
+            buildConfigField 'int', 'LOCATION_NOTIF_ID', '1000'
+            buildConfigField 'long', 'LOCATION_SHARE_INTERVAL', '5'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
     }
 }
 
@@ -31,8 +49,13 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.0'
     implementation 'com.google.android.gms:play-services-maps:12.0.1'
     implementation 'com.google.android.gms:play-services-location:12.0.1'
-    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+repositories {
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
 }
