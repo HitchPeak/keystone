@@ -21,11 +21,13 @@ android {
             buildConfigField 'String', 'NOTIF_CHANNEL_ID', '"Hitchpeak"'
             buildConfigField 'int', 'LOCATION_NOTIF_ID', '1000'
             buildConfigField 'long', 'LOCATION_SHARE_INTERVAL', '5'
+            buildConfigField 'String', 'BASE_URL', '"10.0.2.2"'
         }
         debug {
             buildConfigField 'String', 'NOTIF_CHANNEL_ID', '"Hitchpeak"'
             buildConfigField 'int', 'LOCATION_NOTIF_ID', '1000'
             buildConfigField 'long', 'LOCATION_SHARE_INTERVAL', '5'
+            buildConfigField 'String', 'BASE_URL', '"http://httpbin.org"'
         }
     }
     packagingOptions {
@@ -50,6 +52,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:12.0.1'
     implementation 'com.google.android.gms:play-services-location:12.0.1'
     implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+    implementation 'com.google.code.gson:gson:2.8.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

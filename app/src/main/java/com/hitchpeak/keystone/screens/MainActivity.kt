@@ -37,9 +37,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Initialize http client:
         HttpClient.init(applicationContext)
 
-
         // Start location sharing TODO("base starting location sharing on setting")
         startService(Intent(this, LocationShareService::class.java))
+
+
+        // TODO: TESTING
+        // It seems that we have a problem here
+        println(HttpClient.baseUrl)
+//        val testString = HttpClient.instance!!.getForObject(HttpClient.baseUrl + HttpClient.getEndpoint, String::class.java)
+//        println(testString)
     }
 
     override fun onBackPressed() {
