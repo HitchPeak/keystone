@@ -45,7 +45,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         googleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
     }
 
-
     companion object {
         /**
          * Use this factory method to create a new instance of

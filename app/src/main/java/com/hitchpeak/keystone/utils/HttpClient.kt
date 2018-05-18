@@ -1,25 +1,31 @@
 package com.hitchpeak.keystone.utils
 
-import android.content.Context
 import com.hitchpeak.keystone.BuildConfig
 import org.springframework.web.client.RestTemplate
+import java.util.concurrent.BlockingQueue
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 
-class HttpClient constructor(context: Context) : RestTemplate() {
+object HttpClient : RestTemplate() {
 
+    val testValue = "Print me this!"
 
-    companion object {
-        @Volatile
-        var instance : HttpClient? = null
-            private set
+    const val BASE_URL = BuildConfig.BASE_URL
+    val GET = "/get"
+    val POST = "/post"
 
-        val baseUrl = BuildConfig.BASE_URL
-        val getEndpoint = "/get"
+    private val mTaskQueue: BlockingQueue<Runnable> = LinkedBlockingQueue<Runnable>()
 
-        fun init(context: Context) {
-            instance = synchronized(this) { instance ?: HttpClient(context) }
-        }
+    private val mThreadPool = ThreadPoolExecutor(
+            Runtime.getRuntime().availableProcessors(),
+            Runtime.getRuntime().availableProcessors(),
+            1,
+            TimeUnit.SECONDS,
+            mTaskQueue)
 
+    fun execute(task: Runnable) {
+        mThreadPool.execute(task)
     }
-
 }

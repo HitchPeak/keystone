@@ -6,12 +6,13 @@ import android.app.Service
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.IBinder
-import android.support.annotation.WorkerThread
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import com.google.android.gms.location.*
 import com.hitchpeak.keystone.BuildConfig
 import com.hitchpeak.keystone.R
+import com.hitchpeak.keystone.models.LocationShareModel
+import com.hitchpeak.keystone.utils.HttpClient
 
 class LocationShareService : Service() {
 
@@ -38,33 +39,37 @@ class LocationShareService : Service() {
         startForeground(notificationId, notification)
     }
 
-    @WorkerThread
     private fun startLocationSharing() {
         // The gist of location sharing:
+        locationProvider = LocationServices.getFusedLocationProviderClient(applicationContext)
 
-        Thread().run {
-            locationProvider = LocationServices.getFusedLocationProviderClient(applicationContext)
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = BuildConfig.LOCATION_SHARE_INTERVAL
 
-            val locationRequest = LocationRequest.create()
-            locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            locationRequest.interval = BuildConfig.LOCATION_SHARE_INTERVAL
+        val locationCallback: LocationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                locationResult ?: return
 
-            val locationCallback: LocationCallback = object : LocationCallback() {
-                override fun onLocationResult(locationResult: LocationResult?) {
-                    // TODO("Handle location sharing here.")
-                    println(locationResult)
-                }
-            }
+                val location = locationResult.lastLocation
+                val locationModel = LocationShareModel(
+                        location.latitude,
+                        location.longitude,
+                        location.time,
+                        location.accuracy)
 
-            if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-
-                locationProvider.requestLocationUpdates(locationRequest, locationCallback, null)
-            } else {
-                // TODO("Handle case when permission is not granted")
+                HttpClient.execute(Runnable {
+                    val res = HttpClient.postForObject(HttpClient.BASE_URL + HttpClient.POST, locationModel, String::class.java)
+                })
             }
         }
 
+        if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            locationProvider.requestLocationUpdates(locationRequest, locationCallback, null)
+        } else {
+            // TODO("Handle case when permission is not granted")
+        }
     }
 
     override fun onBind(intent: Intent): IBinder? {

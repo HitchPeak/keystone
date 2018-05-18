@@ -12,7 +12,6 @@ import com.hitchpeak.keystone.R
 import com.hitchpeak.keystone.appServices.LocationShareService
 import com.hitchpeak.keystone.screens.home.HomeFragment
 import com.hitchpeak.keystone.screens.settings.SettingsFragment
-import com.hitchpeak.keystone.utils.HttpClient
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -34,18 +33,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navigate(R.id.nav_home)
 
-        // Initialize http client:
-        HttpClient.init(applicationContext)
-
         // Start location sharing TODO("base starting location sharing on setting")
         startService(Intent(this, LocationShareService::class.java))
-
-
-        // TODO: TESTING
-        // It seems that we have a problem here
-        println(HttpClient.baseUrl)
-//        val testString = HttpClient.instance!!.getForObject(HttpClient.baseUrl + HttpClient.getEndpoint, String::class.java)
-//        println(testString)
     }
 
     override fun onBackPressed() {
