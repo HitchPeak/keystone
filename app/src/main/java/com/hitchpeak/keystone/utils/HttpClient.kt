@@ -10,8 +10,6 @@ import java.util.concurrent.TimeUnit
 
 object HttpClient : RestTemplate() {
 
-    val testValue = "Print me this!"
-
     const val BASE_URL = BuildConfig.BASE_URL
     val GET = "/get"
     val POST = "/post"
