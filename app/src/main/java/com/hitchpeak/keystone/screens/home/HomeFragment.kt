@@ -9,7 +9,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.hitchpeak.keystone.R
+import com.hitchpeak.keystone.R.id.map
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 /**
@@ -23,8 +25,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
-    private var mapView: MapView? = null
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -32,13 +32,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         map.onCreate(null)
         map.onResume()
         map.getMapAsync(this)
-
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
@@ -50,11 +49,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
          * @return A new instance of fragment HomeFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() = HomeFragment()
     }

@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit
 object HttpClient : RestTemplate() {
 
     const val BASE_URL = BuildConfig.BASE_URL
-    val GET = "/get"
-    val POST = "/post"
+    const val GET = "/get"
+    const val LOCATION_SHARE_POST = "/post"
 
     private val mTaskQueue: BlockingQueue<Runnable> = LinkedBlockingQueue<Runnable>()
 

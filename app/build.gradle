@@ -22,12 +22,14 @@ android {
             buildConfigField 'int', 'LOCATION_NOTIF_ID', '1000'
             buildConfigField 'long', 'LOCATION_SHARE_INTERVAL', '5'
             buildConfigField 'String', 'BASE_URL', '"10.0.2.2"'
+            buildConfigField 'String', 'LOCATION_REQUEST_PRIORITY', '"HIGH_ACCURACY"'
         }
         debug {
             buildConfigField 'String', 'NOTIF_CHANNEL_ID', '"Hitchpeak"'
             buildConfigField 'int', 'LOCATION_NOTIF_ID', '1000'
             buildConfigField 'long', 'LOCATION_SHARE_INTERVAL', '5'
             buildConfigField 'String', 'BASE_URL', '"http://httpbin.org"'
+            buildConfigField 'String', 'LOCATION_REQUEST_PRIORITY', '"HIGH_ACCURACY"'
         }
     }
     packagingOptions {
