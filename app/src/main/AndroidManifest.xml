@@ -35,9 +35,17 @@
         <!-- Maps -->
 
         <service
-            android:name="com.hitchpeak.keystone.appServices.LocationShareService"
+            android:name=".appServices.LocationShareService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".authentication.AuthenticatorActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
